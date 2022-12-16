@@ -1,13 +1,16 @@
 package com.simplon.bank_connect.client;
 
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class clientController {
+@RequestMapping("/client")
+public class ClientController {
 
-    @RequestMapping("/client")
+
+    @GetMapping
     public String hello() {
         return "Hello World";
     }
