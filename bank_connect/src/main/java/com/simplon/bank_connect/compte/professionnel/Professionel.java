@@ -9,9 +9,9 @@ import java.time.LocalDate;
 public class Professionel
             extends com.simplon.bank_connect.compte.Compte {
 
-    private Double maxPerDay;
+    private Double maxPerDay = 10000.0;
 
-    private Double maxPerYear;
+    private Double maxPerYear = 200000.0;
 
 
     private LocalDate updated_at;
@@ -25,10 +25,34 @@ public class Professionel
         this.updated_at = updated_at;
     }
 
-    public Professionel(String numeroCompte, double solde, CompteType type, Double maxPerDay, Double maxPerYear, LocalDate dateCreation, LocalDate dateExpiration, LocalDate updated_at) {
+    public Professionel(String numeroCompte, Double solde, String password, CompteType type, Double maxPerDay, Double maxPerYear, LocalDate dateCreation, LocalDate dateExpiration, LocalDate updated_at) {
         super(numeroCompte, solde, password, type);
         this.maxPerDay = maxPerDay;
         this.maxPerYear = maxPerYear;
+        this.updated_at = updated_at;
+    }
+
+    public Double getMaxPerDay() {
+        return maxPerDay;
+    }
+
+    public void setMaxPerDay(Double maxPerDay) {
+        this.maxPerDay = maxPerDay;
+    }
+
+    public Double getMaxPerYear() {
+        return maxPerYear;
+    }
+
+    public void setMaxPerYear(Double maxPerYear) {
+        this.maxPerYear = maxPerYear;
+    }
+
+    public LocalDate getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
     }
 }
