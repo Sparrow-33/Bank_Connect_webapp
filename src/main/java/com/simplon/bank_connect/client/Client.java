@@ -1,10 +1,7 @@
 package com.simplon.bank_connect.client;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 
 @Entity
 public class Client {
@@ -22,12 +19,15 @@ public class Client {
 
     private String phone;
 
-    public Client(Long id, String name, String email, String address, String phone) {
+    private String cin;
+
+    public Client(Long id, String name, String email, String address, String phone, String cin) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.address = address;
         this.phone = phone;
+        this.cin = cin;
     }
 
     public Client() {
@@ -80,6 +80,13 @@ public class Client {
         this.phone = phone;
     }
 
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
 
     @Override
     public String toString() {
@@ -88,6 +95,10 @@ public class Client {
                 ", name = " + name +
                 ", email = " + email +
                 ", address = " + address +
-                ", phone = " + phone + '}';
+                ", phone = " + phone +
+                ", cin = " + cin +'}';
     }
+
+
+
 }

@@ -1,5 +1,7 @@
 package com.simplon.bank_connect.compte;
 
+import com.simplon.bank_connect.card.Card;
+import com.simplon.bank_connect.client.Client;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,17 +15,21 @@ public abstract class Compte {
 
     private String numeroCompte;
 
-    private double solde;
+    private Double solde;
 
+    private String password;
+
+    @Enumerated(EnumType.STRING)
     private CompteType type;
 
 
     public Compte() {
     }
 
-    public Compte(String numeroCompte, double solde, CompteType type) {
+    public Compte(String numeroCompte, Double solde, String password, CompteType type) {
         this.numeroCompte = numeroCompte;
         this.solde = solde;
+        this.password = password;
         this.type = type;
     }
 
@@ -58,4 +64,22 @@ public abstract class Compte {
     public void setType(CompteType type) {
         this.type = type;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id" , referencedColumnName = "id")
+    private Client client;
+
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "card_id" , referencedColumnName = "id")
+    private Card card;
 }
