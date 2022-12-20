@@ -9,8 +9,8 @@ import jakarta.persistence.*;
 public abstract class Compte {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "compte_seq")
-    @SequenceGenerator(name = "compte_seq" , sequenceName = "compte_seq" , allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compte_seq")
+    @SequenceGenerator(name = "compte_seq", sequenceName = "compte_seq", allocationSize = 1)
     private Long id;
 
     private String numeroCompte;
@@ -49,12 +49,8 @@ public abstract class Compte {
         this.numeroCompte = numeroCompte;
     }
 
-    public double getSolde() {
+    public Double getSolde() {
         return solde;
-    }
-
-    public void setSolde(double solde) {
-        this.solde = solde;
     }
 
     public CompteType getType() {
@@ -74,12 +70,45 @@ public abstract class Compte {
     }
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id" , referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
+    public void setSolde(Double solde) {
+        this.solde = solde;
+    }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "card_id" , referencedColumnName = "id")
+    @JoinColumn(name = "card_id", referencedColumnName = "id")
     private Card card;
+
+
+    @Override
+    public String toString() {
+        return "\nCompte{" +
+                "id=" + id +
+                ", numeroCompte='" + numeroCompte + '\'' +
+                ", solde=" + solde +
+                ", password='" + password + '\'' +
+                ", type=" + type +
+                ", client=" + client +
+                ", card=" + card +
+                '}';
+    }
+
 }
