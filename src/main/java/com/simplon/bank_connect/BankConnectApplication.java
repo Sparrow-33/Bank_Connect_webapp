@@ -1,7 +1,11 @@
 package com.simplon.bank_connect;
 
+import com.simplon.bank_connect.client.Client;
+import com.simplon.bank_connect.client.ClientRepository;
+import com.simplon.bank_connect.client.ClientService;
 import com.simplon.bank_connect.compte.Compte;
 import com.simplon.bank_connect.compte.CompteRepository;
+import com.simplon.bank_connect.compte.CompteService;
 import com.simplon.bank_connect.compte.CompteType;
 import com.simplon.bank_connect.compte.professionnel.Professionel;
 import com.simplon.bank_connect.compte.professionnel.ProfessionelRepository;
@@ -24,13 +28,22 @@ public class BankConnectApplication {
 
 		CompteRepository standardRepository = configurableApplicationContext.getBean(StandardRepository.class);
 
-		Compte comptePro = new Professionel("1234567890", 1000.0, "1234", CompteType.COMPTE_PROFESSIONNEL, 10000.0, 200000.0, LocalDate.now(), LocalDate.now().plusYears(10), LocalDate.now());
+		ClientService clientService = configurableApplicationContext.getBean(ClientService.class);
 
-		Compte compteStandard = new Standard("0987654321", 1000.0, "1234", CompteType.COMPTE_STANDARD, 10000.0, 200000.0, LocalDate.now(), LocalDate.now().plusYears(10), LocalDate.now());
+		CompteService compteService = configurableApplicationContext.getBean(CompteService.class);
 
-		professionelRepository.save(comptePro);
+		Client client = clientService.getClientById(1L);
 
-		standardRepository.save(compteStandard);
+		Compte compte = compteService.getCompteByNumeroCompte("1234567890");
+
+		System.out.println(compte);
+
+
+
+
+
+
+
 
 	}
 

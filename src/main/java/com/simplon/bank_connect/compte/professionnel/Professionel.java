@@ -55,4 +55,18 @@ public class Professionel
     public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
     }
+
+
+    @Override
+    public String toString() {
+        return "\nProfessionel{" +
+                "maxPerDay=" + maxPerDay +
+                ", maxPerYear=" + maxPerYear +
+                ", updated_at=" + updated_at +
+                ", numeroCompte='" + super.getNumeroCompte() + '\'' +
+                ", solde=" + super.getSolde() +
+                ", password='" + super.getPassword() + '\'' +
+                ", type=" + super.getType() +
+                '}';
+    }
 }

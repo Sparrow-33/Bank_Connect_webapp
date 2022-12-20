@@ -15,6 +15,30 @@ public class Standard extends Compte {
 
     private LocalDate updated_at;
 
+    public Double getMaxPerDay() {
+        return maxPerDay;
+    }
+
+    public void setMaxPerDay(Double maxPerDay) {
+        this.maxPerDay = maxPerDay;
+    }
+
+    public Double getMaxPerYear() {
+        return maxPerYear;
+    }
+
+    public void setMaxPerYear(Double maxPerYear) {
+        this.maxPerYear = maxPerYear;
+    }
+
+    public LocalDate getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(LocalDate updated_at) {
+        this.updated_at = updated_at;
+    }
+
     public Standard() {
     }
 
@@ -31,6 +55,17 @@ public class Standard extends Compte {
         this.updated_at = updated_at;
     }
 
-
+    @Override
+    public String toString() {
+        return "\nStandard{" +
+                "maxPerDay=" + maxPerDay +
+                ", maxPerYear=" + maxPerYear +
+                ", updated_at=" + updated_at +
+                ", numeroCompte='" + super.getNumeroCompte() + '\'' +
+                ", solde=" + super.getSolde() +
+                ", password='" + super.getPassword() + '\'' +
+                ", type=" + super.getType() +
+                '}';
+    }
 
 }

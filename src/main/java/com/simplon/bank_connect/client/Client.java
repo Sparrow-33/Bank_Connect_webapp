@@ -21,8 +21,7 @@ public class Client {
 
     private String cin;
 
-    public Client(Long id, String name, String email, String address, String phone, String cin) {
-        this.id = id;
+    public Client( String name, String email, String address, String phone, String cin) {
         this.name = name;
         this.email = email;
         this.address = address;
@@ -90,7 +89,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" + " " +
+        return "\nClient{" + " " +
                 "id = " + id +
                 ", name = " + name +
                 ", email = " + email +
