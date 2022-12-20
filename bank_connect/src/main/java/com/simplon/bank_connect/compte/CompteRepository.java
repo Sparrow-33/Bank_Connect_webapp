@@ -8,4 +8,5 @@ public interface CompteRepository
         extends org.springframework.data.jpa.repository.JpaRepository<Compte, Long> {
 
     Compte findByNumeroCompte(String numeroCompte);
+    Compte findByClient_Id(Long id);
 }

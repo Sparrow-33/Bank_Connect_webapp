@@ -3,9 +3,10 @@ package com.simplon.bank_connect.utils;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
-@Service
+@Configuration
 public class SmsSenderService {
 
     private static final String ACCOUNT_SID = "AC2ce9c724c59355056772acb84b96623d";

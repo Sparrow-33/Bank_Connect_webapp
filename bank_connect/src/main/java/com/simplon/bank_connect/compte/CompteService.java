@@ -44,6 +44,24 @@ public class CompteService {
         return compte;
     }
 
+    public Compte getCompteByClient(Long id){
+        Compte compte = standardRepository.findByClient_Id(id);
+        if(compte == null){
+            compte = professionelRepository.findByClient_Id(id);
+        }
+        return compte;
+    }
+
+    // get all comptes by type
+    public Iterable<Compte> getAllComptesByType(CompteType type){
+        if(type == CompteType.COMPTE_STANDARD){
+            return standardRepository.findAll();
+        }else if(type == CompteType.COMPTE_PROFESSIONNEL){
+            return professionelRepository.findAll();
+        }
+        return null;
+    }
+
 
 
 

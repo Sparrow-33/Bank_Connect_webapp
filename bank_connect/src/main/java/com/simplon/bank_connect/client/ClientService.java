@@ -15,11 +15,20 @@ public class ClientService {
     }
 
 
-    public Client saveClient(Client client){
+    public Client saveClient(Client client) {
+        System.out.println(client);
         return clientRepository.save(client);
     }
 
-    public Client getClientById(Long id){
+    public Client getClientById(Long id) {
         return clientRepository.findById(id).get();
     }
+
+    public Client getClientByCin(String cin) {
+        return clientRepository.findByCin(cin);
+    }
+
+
+
+
 }

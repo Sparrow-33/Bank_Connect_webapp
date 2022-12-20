@@ -23,12 +23,10 @@ import java.time.LocalDate;
 @SpringBootApplication
 public class BankConnectApplication {
 	public static void main(String[] args) {
+//		ConfigurableApplicationContext configurableApplicationContext =
+				SpringApplication.run(BankConnectApplication.class, args);
 
-		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(BankConnectApplication.class, args);
 
-		SmsSenderService smsSenderService = configurableApplicationContext.getBean(SmsSenderService.class);
-
-		smsSenderService.sendSms("+212606422895", "Hello baby girl !");
 
 
 
