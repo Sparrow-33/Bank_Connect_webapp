@@ -11,6 +11,8 @@ import com.simplon.bank_connect.compte.professionnel.Professionel;
 import com.simplon.bank_connect.compte.professionnel.ProfessionelRepository;
 import com.simplon.bank_connect.compte.standard.Standard;
 import com.simplon.bank_connect.compte.standard.StandardRepository;
+import com.simplon.bank_connect.utils.EmailSenderService;
+import com.simplon.bank_connect.utils.SmsSenderService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -24,19 +26,9 @@ public class BankConnectApplication {
 
 		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(BankConnectApplication.class, args);
 
-		CompteRepository professionelRepository = configurableApplicationContext.getBean(ProfessionelRepository.class);
+		SmsSenderService smsSenderService = configurableApplicationContext.getBean(SmsSenderService.class);
 
-		CompteRepository standardRepository = configurableApplicationContext.getBean(StandardRepository.class);
-
-		ClientService clientService = configurableApplicationContext.getBean(ClientService.class);
-
-		CompteService compteService = configurableApplicationContext.getBean(CompteService.class);
-
-		Client client = clientService.getClientById(1L);
-
-		Compte compte = compteService.getCompteByNumeroCompte("1234567890");
-
-		System.out.println(compte);
+		smsSenderService.sendSms("+212606422895", "Hello baby girl !");
 
 
 
