@@ -2,8 +2,12 @@ package com.simplon.bank_connect.client;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class Client {
 
     @Id
@@ -15,15 +19,18 @@ public class Client {
 
     private String email;
 
+    private String password;
+
     private String address;
 
     private String phone;
 
     private String cin;
 
-    public Client( String name, String email, String address, String phone, String cin) {
+    public Client( String name, String email, String password ,String address, String phone, String cin) {
         this.name = name;
         this.email = email;
+        this.password = password;
         this.address = address;
         this.phone = phone;
         this.cin = cin;

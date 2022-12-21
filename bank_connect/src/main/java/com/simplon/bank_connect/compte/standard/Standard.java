@@ -63,7 +63,6 @@ public class Standard extends Compte {
                 ", updated_at=" + updated_at +
                 ", numeroCompte='" + super.getNumeroCompte() + '\'' +
                 ", solde=" + super.getSolde() +
-                ", password='" + super.getPassword() + '\'' +
                 ", type=" + super.getType() +
                 '}';
     }
