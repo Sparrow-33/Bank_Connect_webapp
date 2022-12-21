@@ -70,4 +70,12 @@ public class CompteService {
         comptes.addAll(professionelRepository.findAll());
         return comptes;
     }
+
+    public List<Compte> getAllCompteProfessionel() {
+        return professionelRepository.findAll();
+    }
+
+    public List<Compte> getAllCompteStandard() {
+        return standardRepository.findAll();
+    }
 }
