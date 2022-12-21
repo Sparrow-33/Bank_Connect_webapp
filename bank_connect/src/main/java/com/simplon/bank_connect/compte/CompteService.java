@@ -7,6 +7,8 @@ import com.simplon.bank_connect.compte.standard.StandardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CompteService {
 
@@ -53,16 +55,19 @@ public class CompteService {
     }
 
     // get all comptes by type
-    public Iterable<Compte> getAllComptesByType(CompteType type){
-        if(type == CompteType.COMPTE_STANDARD){
+    public List<Compte> getAllComptesByType(String type){
+        if(type.equals("COMPTE_STANDARD")){
             return standardRepository.findAll();
-        }else if(type == CompteType.COMPTE_PROFESSIONNEL){
+        }else if(type.equals("COMPTE_PROFESSIONNEL")){
             return professionelRepository.findAll();
         }
         return null;
     }
 
 
-
-
+    public List<Compte> getAllComptes() {
+        List<Compte> comptes = standardRepository.findAll();
+        comptes.addAll(professionelRepository.findAll());
+        return comptes;
+    }
 }
