@@ -1,10 +1,7 @@
 package com.simplon.bank_connect.compte;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +15,22 @@ public class CompteController {
     @Autowired
     public CompteController(CompteService compteService) {
         this.compteService = compteService;
+    }
+
+    @PostMapping("/add")
+    public Compte saveCompte(@RequestBody Compte compte) {
+        System.out.println(compte);
+        return compteService.saveCompte(compte);
+    }
+
+    @GetMapping("/professionel/all")
+    public List<Compte> getAllCompteProfessionel() {
+        return compteService.getAllCompteProfessionel();
+    }
+
+    @GetMapping("/standard/find")
+    public List<Compte> getAllCompteStandard() {
+        return compteService.getAllCompteStandard();
     }
 
 
