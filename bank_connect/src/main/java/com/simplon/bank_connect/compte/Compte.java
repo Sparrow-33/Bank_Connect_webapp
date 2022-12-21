@@ -13,11 +13,15 @@ public abstract class Compte {
     @SequenceGenerator(name = "compte_seq", sequenceName = "compte_seq", allocationSize = 1)
     private Long id;
 
-    private String numeroCompte;
+    @Column(unique = true)
+    private String numeroCompte = "BC" + (int) (Math.random() * 1000000000);
 
-    private Double solde;
+    private Double solde = 0.0;
 
-    private String password;
+    // generate a random password with 8 characters and 1 number and 1 special character
+    private String password = "BC" + (int) (Math.random() * 1000000000)+"!";
+
+    private String status = "inactive";
 
     @Enumerated(EnumType.STRING)
     private CompteType type;
@@ -26,11 +30,12 @@ public abstract class Compte {
     public Compte() {
     }
 
-    public Compte(String numeroCompte, Double solde, String password, CompteType type) {
+    public Compte(String numeroCompte, Double solde, String password, CompteType type, String status) {
         this.numeroCompte = numeroCompte;
         this.solde = solde;
         this.password = password;
         this.type = type;
+        this.status = status;
     }
 
     public Long getId() {
@@ -111,4 +116,11 @@ public abstract class Compte {
                 '}';
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

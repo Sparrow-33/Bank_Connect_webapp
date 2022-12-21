@@ -1,5 +1,6 @@
 package com.simplon.bank_connect.compte;
 
+import com.simplon.bank_connect.compte.standard.Standard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +18,10 @@ public class CompteController {
         this.compteService = compteService;
     }
 
-    @PostMapping("/add")
-    public Compte saveCompte(@RequestBody Compte compte) {
-        System.out.println(compte);
-        return compteService.saveCompte(compte);
+    @PostMapping("/add/standard")
+    public Standard saveStandard(@RequestBody Standard standard, @RequestParam Long idClient) {
+        System.out.println(standard);
+        return (Standard) compteService.saveCompte(standard, idClient);
     }
 
     @GetMapping("/professionel/all")
@@ -44,6 +45,12 @@ public class CompteController {
     public List<Compte> getCompteByType(@RequestParam("type") String type) {
         System.out.println("type = " + type);
         return compteService.getAllComptesByType(type);
+    }
+
+    //get compte by numero
+    @GetMapping("/find/{numero}")
+    public Compte getCompteByNumero(@PathVariable("numero") String numero) {
+        return compteService.getCompteByNumeroCompte(numero);
     }
 
 
