@@ -18,9 +18,6 @@ public abstract class Compte {
 
     private Double solde = 0.0;
 
-    // generate a random password with 8 characters and 1 number and 1 special character
-    private String password = "BC" + (int) (Math.random() * 1000000000)+"!";
-
     private String status = "inactive";
 
     @Enumerated(EnumType.STRING)

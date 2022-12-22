@@ -22,11 +22,67 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
-    private Long idCompteDestinataire;
-
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "compte_id" , nullable = false)
-    private Compte compte;
+    @JoinColumn(name = "destinataire_id" , nullable = false)
+    private Compte destinataire;
+
+    public Transaction() {
+    }
+
+    public Transaction(String dateTransaction, String typeTransaction, double montantTransaction, TransactionType type, Compte emetteur, Compte destinataire) {
+        this.dateTransaction = dateTransaction;
+        this.typeTransaction = typeTransaction;
+        this.montantTransaction = montantTransaction;
+        this.type = type;
+        this.destinataire = destinataire;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDateTransaction() {
+        return dateTransaction;
+    }
+
+    public void setDateTransaction(String dateTransaction) {
+        this.dateTransaction = dateTransaction;
+    }
+
+    public String getTypeTransaction() {
+        return typeTransaction;
+    }
+
+    public void setTypeTransaction(String typeTransaction) {
+        this.typeTransaction = typeTransaction;
+    }
+
+    public double getMontantTransaction() {
+        return montantTransaction;
+    }
+
+    public void setMontantTransaction(double montantTransaction) {
+        this.montantTransaction = montantTransaction;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
 
 
+    public Compte getDestinataire() {
+        return destinataire;
+    }
+
+    public void setDestinataire(Compte destinataire) {
+        this.destinataire = destinataire;
+    }
 }
