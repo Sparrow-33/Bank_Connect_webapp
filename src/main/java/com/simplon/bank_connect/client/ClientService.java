@@ -1,7 +1,38 @@
 package com.simplon.bank_connect.client;
 
-public interface ClientService {
-     Client saveClient(Client client);
-     Client getClientById(Long id);
-     Client getClientByEmail(String email);
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ClientService {
+
+    private final ClientRepository clientRepository;
+
+    @Autowired
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+
+
+    public Client saveClient(Client client) {
+        System.out.println(client);
+        return clientRepository.save(client);
+    }
+
+    public Client getClientById(Long id) {
+        return clientRepository.findById(id).get();
+    }
+
+    public Client getClientByCin(String cin) {
+        return clientRepository.findByCin(cin);
+    }
+
+
+    public List<Client> getAllClients() {
+        return clientRepository.findAll();
+    }
+
 }
