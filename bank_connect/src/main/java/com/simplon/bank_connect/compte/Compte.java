@@ -33,7 +33,6 @@ public abstract class Compte {
     public Compte(String numeroCompte, Double solde, String password, CompteType type, String status) {
         this.numeroCompte = numeroCompte;
         this.solde = solde;
-        this.password = password;
         this.type = type;
         this.status = status;
     }
@@ -66,13 +65,7 @@ public abstract class Compte {
         this.type = type;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
@@ -109,7 +102,6 @@ public abstract class Compte {
                 "id=" + id +
                 ", numeroCompte='" + numeroCompte + '\'' +
                 ", solde=" + solde +
-                ", password='" + password + '\'' +
                 ", type=" + type +
                 ", client=" + client +
                 ", card=" + card +

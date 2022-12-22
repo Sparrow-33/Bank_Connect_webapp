@@ -37,5 +37,6 @@ public class ClientController {
     public Client saveClient(@RequestBody Client client) {
         System.out.println(client);
         return clientService.saveClient(client);
+
     }
 }
