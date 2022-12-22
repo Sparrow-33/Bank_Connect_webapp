@@ -1,6 +1,7 @@
 package com.simplon.bank_connect.compte;
 
 import com.simplon.bank_connect.compte.standard.Standard;
+import com.simplon.bank_connect.utils.SmsSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +14,17 @@ public class CompteController {
 
     private final CompteService compteService;
 
+    private final SmsSenderService smsSenderService;
+
     @Autowired
-    public CompteController(CompteService compteService) {
+    public CompteController(CompteService compteService, SmsSenderService smsSenderService) {
         this.compteService = compteService;
+        this.smsSenderService = smsSenderService;
+    }
+
+    @GetMapping("/sms")
+    public void sendSms() {
+        smsSenderService.sendSms("+212 606 422895", "Salam alikoum lala asmae neqadem lik rassi smiti brahim o rah khedite nemratek men facebook la kan momkin net3arefo");
     }
 
     @PostMapping("/add/standard")

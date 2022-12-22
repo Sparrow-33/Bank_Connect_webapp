@@ -1,20 +1,25 @@
 package com.simplon.bank_connect.client;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.simplon.bank_connect.utils.SmsSenderService;
+import com.twilio.twiml.voice.Sms;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/client")
+@RequiredArgsConstructor
 public class ClientController {
 
     private final ClientService clientService;
+    private final PasswordEncoder passwordEncoder;
 
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
+    private final SmsSenderService smsSenderService;
+
+
 
     @GetMapping("/all")
     public List<Client> getAllClients() {
@@ -35,8 +40,18 @@ public class ClientController {
 
     @PostMapping("/add")
     public Client saveClient(@RequestBody Client client) {
-        System.out.println(client);
         return clientService.saveClient(client);
+    }
 
+
+
+    @PostMapping("/save/sendSms")
+    public String sendSms(@RequestBody Client client) {
+        String code = clientService.generateCode();
+
+        assert client.getPhone() != null;
+        clientService.saveClient(client);
+        smsSenderService.sendSms(client.getPhone(), "Votre code confirmation est : " + code + " .");
+        return code;
     }
 }

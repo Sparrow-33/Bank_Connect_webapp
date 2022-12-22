@@ -7,32 +7,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClientService {
-
-    private final ClientRepository clientRepository;
-
-    @Autowired
-    public ClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+public interface ClientService {
 
 
-    public Client saveClient(Client client) {
-        System.out.println(client);
-        return clientRepository.save(client);
-    }
 
-    public Client getClientById(Long id) {
-        return clientRepository.findById(id).get();
-    }
-
-    public Client getClientByCin(String cin) {
-        return clientRepository.findByCin(cin);
-    }
+     Client saveClient(Client client) ;
 
 
-    public List<Client> getAllClients() {
-        return clientRepository.findAll();
-    }
+     Client getClientById(Long id) ;
 
+     Client getClientByCin(String cin);
+
+
+     List<Client> getAllClients() ;
+
+    Client getClientByEmail(String email);
+
+    String generateCode();
 }

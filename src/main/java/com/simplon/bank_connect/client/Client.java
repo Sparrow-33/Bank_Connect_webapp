@@ -27,7 +27,26 @@ public class Client {
 
     private String cin;
 
-    public Client( String name, String email, String password ,String address, String phone, String cin) {
+    @Transient
+    private String confimationCode = String.valueOf((int) (Math.random() * 90000) + 10000);
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfimationCode() {
+        return confimationCode;
+    }
+
+    public void setConfimationCode(String confimationCode) {
+        this.confimationCode = confimationCode;
+    }
+
+    public Client(String name, String email, String password , String address, String phone, String cin) {
         this.name = name;
         this.email = email;
         this.password = password;
