@@ -13,7 +13,7 @@ public class Transaction {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE, generator = "transaction_seq")
     private Long id;
 
-    private String dateTransaction;
+    private String dateTransaction = java.time.LocalDate.now().toString();
 
     private String typeTransaction;
 

@@ -14,7 +14,7 @@ public class Professionel
     private Double maxPerYear = 200000.0;
 
 
-    private LocalDate updated_at;
+    private LocalDate updated_at = LocalDate.now();
 
     public Professionel() {
     }
@@ -25,8 +25,8 @@ public class Professionel
         this.updated_at = updated_at;
     }
 
-    public Professionel(String numeroCompte, Double solde, String password, CompteType type, Double maxPerDay, Double maxPerYear, LocalDate dateCreation, LocalDate dateExpiration, LocalDate updated_at) {
-        super(numeroCompte, solde, password, type);
+    public Professionel(String numeroCompte, Double solde, String password, CompteType type, Double maxPerDay, Double maxPerYear,String status, LocalDate updated_at) {
+        super(numeroCompte, solde, password, type,status);
         this.maxPerDay = maxPerDay;
         this.maxPerYear = maxPerYear;
         this.updated_at = updated_at;
