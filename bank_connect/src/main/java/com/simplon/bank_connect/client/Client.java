@@ -17,6 +17,7 @@ public class Client {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -28,7 +29,7 @@ public class Client {
     private String cin;
 
     @Transient
-    private String confimationCode = String.valueOf((int) (Math.random() * 90000) + 10000);
+    private String confimationCode;
 
     public String getPassword() {
         return password;
@@ -121,7 +122,8 @@ public class Client {
                 ", email = " + email +
                 ", address = " + address +
                 ", phone = " + phone +
-                ", cin = " + cin +'}';
+                ", cin = " + cin +
+                ", confimationCode = " + confimationCode +" }";
     }
 
 

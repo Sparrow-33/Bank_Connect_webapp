@@ -15,10 +15,10 @@ public class SmsSenderService {
 
     private String ACCOUNT_SID = "AC9f11708e058f46cf5d9443d16be455d7";
 
-    private String AUTH_TOKEN = "910b9459187b697fda6ee524148821ec";
+    private String AUTH_TOKEN = "002ec9b4aaa354d906ab9f3d6cddf167";
 
 
-    private String PHONE_NUMBER = "+1 386 666 3914";
+    private String PHONE_NUMBER = "+13866663914";
 
 
     public Boolean sendSms(String to, String body) {
