@@ -20,15 +20,10 @@ public class EmailSenderService {
     public void sendEmail(String toAddress, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(toAddress);
-
         msg.setSubject(subject);
         msg.setText(body);
 
         javaMailSender.send(msg);
     }
 
-    // method to generate random 5 digit number for OTP
-    public int generateRandomNumber() {
-        return (int) (Math.random() * 90000) + 10000;
-    }
 }

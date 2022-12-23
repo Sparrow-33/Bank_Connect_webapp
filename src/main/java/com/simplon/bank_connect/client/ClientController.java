@@ -31,7 +31,7 @@ public class ClientController {
         System.out.println("id = " + id);
         return clientService.getClientById(id);
     }
-//get client by cin
+    //get client by cin
     @GetMapping("/find")
     public Client getClientByCin(@RequestParam("cin") String cin) {
         System.out.println("cin = " + cin);
@@ -46,12 +46,23 @@ public class ClientController {
 
 
     @PostMapping("/save/sendSms")
-    public String sendSms(@RequestBody Client client) {
+    public Client sendSms(@RequestBody Client client) {
         String code = clientService.generateCode();
-
+        client.setConfimationCode(code);
         assert client.getPhone() != null;
         clientService.saveClient(client);
         smsSenderService.sendSms(client.getPhone(), "Votre code confirmation est : " + code + " .");
-        return code;
+        return client;
+    }
+
+    @GetMapping("/save/verifySms")
+    public String verifySms(@RequestParam("code") String code,@RequestParam("id") Long id) {
+        Client client = clientService.getClientById(id);
+        assert  client != null;
+        if (client.getConfimationCode().equals(code)) {
+            return "Code correct";
+        } else {
+            return "Code incorrect";
+        }
     }
 }

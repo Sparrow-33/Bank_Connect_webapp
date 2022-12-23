@@ -5,6 +5,8 @@ import com.simplon.bank_connect.client.Client;
 import com.simplon.bank_connect.compte.Compte;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class Transaction {
 
@@ -13,28 +15,29 @@ public class Transaction {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE, generator = "transaction_seq")
     private Long id;
 
-    private String dateTransaction = java.time.LocalDate.now().toString();
+    private LocalDate dateTransaction = java.time.LocalDate.now();
 
-    private String typeTransaction;
 
     private double montantTransaction;
 
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "destinataire_id" , nullable = false)
-    private Compte destinataire;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id")
+    private Compte sender;
+
+    private Long recipient;
 
     public Transaction() {
     }
 
-    public Transaction(String dateTransaction, String typeTransaction, double montantTransaction, TransactionType type, Compte emetteur, Compte destinataire) {
+    public Transaction(LocalDate dateTransaction,  double montantTransaction, TransactionType type,Compte sender, Long recipient) {
         this.dateTransaction = dateTransaction;
-        this.typeTransaction = typeTransaction;
         this.montantTransaction = montantTransaction;
+        this.sender = sender;
         this.type = type;
-        this.destinataire = destinataire;
+        this.recipient = recipient;
     }
 
     public Long getId() {
@@ -45,21 +48,22 @@ public class Transaction {
         this.id = id;
     }
 
-    public String getDateTransaction() {
+    public Compte getSender() {
+        return sender;
+    }
+
+    public void setSender(Compte sender) {
+        this.sender = sender;
+    }
+
+    public LocalDate getDateTransaction() {
         return dateTransaction;
     }
 
-    public void setDateTransaction(String dateTransaction) {
+    public void setDateTransaction(LocalDate dateTransaction) {
         this.dateTransaction = dateTransaction;
     }
 
-    public String getTypeTransaction() {
-        return typeTransaction;
-    }
-
-    public void setTypeTransaction(String typeTransaction) {
-        this.typeTransaction = typeTransaction;
-    }
 
     public double getMontantTransaction() {
         return montantTransaction;
@@ -78,11 +82,11 @@ public class Transaction {
     }
 
 
-    public Compte getDestinataire() {
-        return destinataire;
+    public Long getDestinataire() {
+        return recipient;
     }
 
-    public void setDestinataire(Compte destinataire) {
-        this.destinataire = destinataire;
+    public void setDestinataire(Long recipient) {
+        this.recipient = recipient;
     }
 }

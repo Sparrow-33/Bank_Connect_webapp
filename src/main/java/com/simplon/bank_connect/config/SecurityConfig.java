@@ -45,7 +45,7 @@ public class SecurityConfig  {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**","/compte/sms","/client/","/save/sendSms")
+                .requestMatchers("/api/auth/**","/compte/sms","/client/","/client/save/sendSms","/client/save/verifySms")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
