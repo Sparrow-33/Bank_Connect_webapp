@@ -1,13 +1,10 @@
 package com.simplon.bank_connect.utils;
 
+
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class SmsSenderService {
@@ -26,7 +23,7 @@ public class SmsSenderService {
         System.out.println("ACCOUNT_SID " + ACCOUNT_SID);
         // Set up account SID and auth token
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        Message message = Message.creator(new PhoneNumber(to), new PhoneNumber(PHONE_NUMBER), body).create();
+        Message message = Message.creator(new com.twilio.type.PhoneNumber(to), new PhoneNumber(PHONE_NUMBER), body).create();
         return message.getErrorMessage() == null;
     }
 
