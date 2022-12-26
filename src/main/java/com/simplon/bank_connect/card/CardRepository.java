@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 public interface CardRepository
                     extends org.springframework.data.jpa.repository.JpaRepository<Card, Long> {
 
+    Card findByNumeroCarte(String numeroCarte);
+
+    boolean existsByNumeroCarte(String cardNumber);
 }
