@@ -2,7 +2,7 @@ package com.simplon.bank_connect.client;
 
 
 import com.simplon.bank_connect.utils.SmsSenderService;
-import com.twilio.twiml.voice.Sms;
+//import com.twilio.twiml.voice.Sms;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +16,9 @@ public class ClientController {
 
     private final ClientService clientService;
     private final PasswordEncoder passwordEncoder;
-
     private final SmsSenderService smsSenderService;
 
+    String[] code;
 
 
     @GetMapping("/all")
@@ -47,11 +47,16 @@ public class ClientController {
 
     @PostMapping("/save/sendSms")
     public Client sendSms(@RequestBody Client client) {
-        String code = clientService.generateCode();
-        client.setConfimationCode(code);
+        code = new String[]{clientService.generateCode()};
+        client.setConfimationCode(code[0]);
+        System.out.println(client.toString());
         assert client.getPhone() != null;
         clientService.saveClient(client);
-        smsSenderService.sendSms(client.getPhone(), "Votre code confirmation est : " + code + " .");
+
+        /* INVALID API TOKEN
+        smsSenderService.sendSms(client.getPhone(), "Votre code confirmation est : " + code[0] + " .");
+        */
+        codeInvalidator();
         return client;
     }
 
@@ -59,10 +64,27 @@ public class ClientController {
     public String verifySms(@RequestParam("code") String code,@RequestParam("id") Long id) {
         Client client = clientService.getClientById(id);
         assert  client != null;
-        if (client.getConfimationCode().equals(code)) {
+        if (this.code[0].equals(code)) {
             return "Code correct";
         } else {
             return "Code incorrect";
         }
+    }
+
+    private void codeInvalidator( ) {
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+
+                    @Override
+
+                    public void run() {
+                     code[0] = clientService.generateCode();
+                    }
+
+                },
+
+                60000
+
+        );
     }
 }

@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
+import lombok.Data;
 
 @Entity
+@Data
 public class Agent {
 
     @Id
@@ -17,22 +19,26 @@ public class Agent {
 
     private String username;
 
+    private String email;
+
     private String password;
 
-    public Agent(Long id, String name, String username, String password) {
+    public Agent(Long id, String name, String username, String password, String email) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public Agent() {
     }
 
-    public Agent(String name, String username, String password) {
+    public Agent(String name, String username, String password, String email) {
         this.name = name;
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public Long getId() {
