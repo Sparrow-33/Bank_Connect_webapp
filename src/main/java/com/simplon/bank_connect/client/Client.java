@@ -28,7 +28,6 @@ public class Client {
 
     private String cin;
 
-    @Transient
     private String confimationCode;
 
     public String getPassword() {

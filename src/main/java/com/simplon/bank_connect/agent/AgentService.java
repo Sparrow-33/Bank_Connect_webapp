@@ -22,10 +22,9 @@ public class AgentService {
         return agentRepository.findById(id).orElseThrow(() -> new IllegalStateException("Agent with id " + id + " does not exist"));
     }
 
-    // getAgentByUserName
-//    public Agent getAgentByUsername(String userName) {
-//        return agentRepository.findByUser()
-//    }
+   public Agent getAgentByEmail(String email) {
+        return agentRepository.findAgentByEmail(email);
+   }
 
 
 }

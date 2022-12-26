@@ -21,8 +21,8 @@ public class AuthenticationController {
     private final UserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<String> authenticate(@RequestBody AuthenticationRequest request) {
+    @PostMapping("/client")
+    public ResponseEntity<String> Clientauthenticate(@RequestBody AuthenticationRequest request) {
         System.out.println(request.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword().trim())
@@ -35,4 +35,18 @@ public class AuthenticationController {
         }
         return ResponseEntity.status(400).body("error occurred");
     }
+
+//    @PostMapping("/agent")
+//    public ResponseEntity<String> Agentauthenticate(@RequestBody AuthenticationRequest request) {
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword().trim())
+//        );
+//
+//        final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail());
+//
+//        if (user != null) {
+//            return ResponseEntity.ok(jwtUtil.generateToken(user));
+//        }
+//        return ResponseEntity.status(400).body("error occurred");
+//    }
 }

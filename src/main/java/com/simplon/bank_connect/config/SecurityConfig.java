@@ -1,5 +1,7 @@
 package com.simplon.bank_connect.config;
 
+import com.simplon.bank_connect.agent.Agent;
+import com.simplon.bank_connect.agent.AgentService;
 import com.simplon.bank_connect.client.Client;
 import com.simplon.bank_connect.client.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +29,17 @@ import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig  {
     private final JwtAuthFilter jwtAuthFilter;
     private final ClientService clientService;
+    private final AgentService agentService;
 
     @Autowired
     @Lazy
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter, ClientService clientService) {
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, ClientService clientService, AgentService agentService) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.clientService = clientService;
+        this.agentService = agentService;
     }
 
 
@@ -66,6 +69,14 @@ public class SecurityConfig  {
         return authenticationProvider;
     }
 
+//    @Bean
+//    public AuthenticationProvider AgentauthenticationProvider() {
+//        final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+//        authenticationProvider.setUserDetailsService(agentDetailsService());
+//        authenticationProvider.setPasswordEncoder(passwordEncoder());
+//        return authenticationProvider;
+//    }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
@@ -86,4 +97,17 @@ public class SecurityConfig  {
             }
         };
     }
+
+//    @Bean
+//    public UserDetailsService agentDetailsService() {
+//        return new UserDetailsService() {
+//            @Override
+//            public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//                Agent user =agentService.getAgentByEmail(email);
+//                return new User(user.getEmail(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority("admin")));
+//
+//            }
+//        };
+//    }
+
 }
