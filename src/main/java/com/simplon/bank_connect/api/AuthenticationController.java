@@ -22,13 +22,14 @@ public class AuthenticationController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/client")
-    public ResponseEntity<String> Clientauthenticate(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<String> ClientAuthenticate(@RequestBody AuthenticationRequest request) {
         System.out.println(request.getPassword());
+        System.out.println( request.getEmail());
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword().trim())
+                new UsernamePasswordAuthenticationToken(request.getEmail()+"-CLIENT" ,request.getPassword().trim())
         );
-
-        final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail());
+        System.out.println("CLIENT AUTH");
+        final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail()+"-CLIENT");
 
         if (user != null) {
             return ResponseEntity.ok(jwtUtil.generateToken(user));
@@ -36,17 +37,17 @@ public class AuthenticationController {
         return ResponseEntity.status(400).body("error occurred");
     }
 
-//    @PostMapping("/agent")
-//    public ResponseEntity<String> Agentauthenticate(@RequestBody AuthenticationRequest request) {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword().trim())
-//        );
-//
-//        final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail());
-//
-//        if (user != null) {
-//            return ResponseEntity.ok(jwtUtil.generateToken(user));
-//        }
-//        return ResponseEntity.status(400).body("error occurred");
-//    }
+    @PostMapping("/agent")
+    public ResponseEntity<String> AgentAuthenticate(@RequestBody AuthenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail()+"-ADMIN", request.getPassword().trim())
+        );
+
+        final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail()+"-ADMIN");
+
+        if (user != null) {
+            return ResponseEntity.ok(jwtUtil.generateToken(user));
+        }
+        return ResponseEntity.status(400).body("error occurred");
+    }
 }

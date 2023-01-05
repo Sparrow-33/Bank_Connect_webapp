@@ -69,14 +69,6 @@ public class SecurityConfig  {
         return authenticationProvider;
     }
 
-//    @Bean
-//    public AuthenticationProvider AgentauthenticationProvider() {
-//        final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setUserDetailsService(agentDetailsService());
-//        authenticationProvider.setPasswordEncoder(passwordEncoder());
-//        return authenticationProvider;
-//    }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
@@ -91,23 +83,21 @@ public class SecurityConfig  {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-                Client user =clientService.getClientByEmail(email);
-                return new User(user.getEmail(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority("user")));
+                if (email.endsWith("-CLIENT")) {
+                    email = email.substring(0, email.length() - 7);
+                    System.out.println(email);
+                    Client user = clientService.getClientByEmail(email);
+                    return new User(user.getEmail(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority("USER")));
 
+                } else if (email.endsWith("-ADMIN")) {
+                    email = email.substring(0, email.length() - 6);
+                    System.out.println(email);
+                    Agent agent = agentService.getAgentByEmail(email);
+                    return new User(agent.getEmail(), agent.getPassword(), Collections.singleton(new SimpleGrantedAuthority("ADMIN")));
+                }
+                return null;
             }
         };
     }
-
-//    @Bean
-//    public UserDetailsService agentDetailsService() {
-//        return new UserDetailsService() {
-//            @Override
-//            public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//                Agent user =agentService.getAgentByEmail(email);
-//                return new User(user.getEmail(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority("admin")));
-//
-//            }
-//        };
-//    }
 
 }
