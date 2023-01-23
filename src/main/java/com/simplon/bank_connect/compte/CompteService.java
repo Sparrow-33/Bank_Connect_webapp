@@ -1,5 +1,6 @@
 package com.simplon.bank_connect.compte;
 
+import com.simplon.bank_connect.card.Card;
 import com.simplon.bank_connect.client.ClientRepository;
 import com.simplon.bank_connect.compte.professionnel.Professionel;
 import com.simplon.bank_connect.compte.professionnel.ProfessionelRepository;
@@ -26,14 +27,28 @@ public class CompteService {
     }
 
     public Compte saveCompte(Compte compte, Long idClient) {
+        System.out.println("idClient = " + idClient + " compte = " + compte);
         if(compte instanceof Standard){
             // set values for standard
             compte.setClient(clientRepository.findById(idClient).get());
             //set new numero compte
             String newNumeroCompte =   compte.getClient().getName().substring(0, 1).toUpperCase() + (int) (Math.random() * 1000000);
             compte.setNumeroCompte(newNumeroCompte);
+            compte.setType(CompteType.COMPTE_STANDARD);
+            Card card = new Card();
+            card.setNumeroCarte(newNumeroCompte + (int) (Math.random() * 1000)+3000);
+            compte.setCard(card);
             return standardRepository.save((Standard) compte);
         }else if(compte instanceof Professionel){
+            // set values for professionel
+            compte.setClient(clientRepository.findById(idClient).get());
+            //set new numero compte
+            String newNumeroCompte =   compte.getClient().getName().substring(0, 2).toUpperCase() + (int) (Math.random() * 1000000);
+            compte.setNumeroCompte(newNumeroCompte);
+            compte.setType(CompteType.COMPTE_PROFESSIONNEL);
+            Card card = new Card();
+            card.setNumeroCarte(newNumeroCompte + (int) (Math.random() * 1000)+3000);
+            compte.setCard(card);
             return professionelRepository.save((Professionel) compte);
         }
         return null;
@@ -66,6 +81,18 @@ public class CompteService {
             return standardRepository.findAll();
         }else if(type.equals("COMPTE_PROFESSIONNEL")){
             return professionelRepository.findAll();
+        }
+        return null;
+    }
+
+    // update compte solde
+    public Compte updateCompteSolde(Compte compte, double montant){
+        if(compte instanceof Standard){
+            ((Standard) compte).setSolde(((Standard) compte).getSolde() + montant);
+            return standardRepository.save((Standard) compte);
+        }else if(compte instanceof Professionel){
+            ((Professionel) compte).setSolde(((Professionel) compte).getSolde() + montant);
+            return professionelRepository.save((Professionel) compte);
         }
         return null;
     }
