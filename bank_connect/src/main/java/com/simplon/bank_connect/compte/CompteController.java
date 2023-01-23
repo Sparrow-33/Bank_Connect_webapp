@@ -1,5 +1,6 @@
 package com.simplon.bank_connect.compte;
 
+import com.simplon.bank_connect.compte.professionnel.Professionel;
 import com.simplon.bank_connect.compte.standard.Standard;
 import com.simplon.bank_connect.utils.SmsSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,15 @@ public class CompteController {
     }
 
     @PostMapping("/add/standard")
-    public Standard saveStandard(@RequestBody Standard standard, @RequestParam Long idClient) {
-        System.out.println(standard);
-        return (Standard) compteService.saveCompte(standard, idClient);
+    public Standard saveStandard( @RequestParam Long idClient) {
+        Compte compte = new Standard();
+        return (Standard) compteService.saveCompte(compte, idClient);
+    }
+
+    @PostMapping("/add/professional")
+    public Professionel saveProfessional(@RequestParam Long idClient) {
+        Compte compte = new Professionel();
+        return (Professionel) compteService.saveCompte(compte, idClient);
     }
 
     @GetMapping("/professionel/all")

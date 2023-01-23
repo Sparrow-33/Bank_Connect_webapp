@@ -2,12 +2,8 @@ package com.simplon.bank_connect.client;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 public class Client {
 
     @Id
@@ -28,7 +24,7 @@ public class Client {
 
     private String cin;
 
-    private String confimationCode;
+    private String confirmationCode;
 
     public String getPassword() {
         return password;
@@ -38,12 +34,12 @@ public class Client {
         this.password = password;
     }
 
-    public String getConfimationCode() {
-        return confimationCode;
+    public String getConfirmationCode() {
+        return confirmationCode;
     }
 
-    public void setConfimationCode(String confimationCode) {
-        this.confimationCode = confimationCode;
+    public void setConfirmationCode(String confirmationCode) {
+        this.confirmationCode = confirmationCode;
     }
 
     public Client(String name, String email, String password , String address, String phone, String cin) {
@@ -122,7 +118,7 @@ public class Client {
                 ", address = " + address +
                 ", phone = " + phone +
                 ", cin = " + cin +
-                ", confimationCode = " + confimationCode +" }";
+                ", confimationCode = " + confirmationCode +" }";
     }
 
 
