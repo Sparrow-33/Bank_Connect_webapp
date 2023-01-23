@@ -4,7 +4,6 @@ package com.simplon.bank_connect.client;
 import com.simplon.bank_connect.utils.SmsSenderService;
 //import com.twilio.twiml.voice.Sms;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +48,7 @@ public class ClientController {
     @PostMapping("/save/sendSms")
     public Client sendSms(@RequestBody Client client) {
         code = new String[]{clientService.generateCode()};
-        client.setConfimationCode(code[0]);
+        client.setConfirmationCode(code[0]);
         System.out.println(client.toString());
         assert client.getPhone() != null;
         clientService.saveClient(client);
