@@ -32,7 +32,7 @@ public class AuthenticationController {
         final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail()+"-CLIENT");
 
         if (user != null) {
-            return ResponseEntity.ok(jwtUtil.generateToken(user));
+            return ResponseEntity.ok(jwtUtil.generateToken(user, "-CLIENT"));
         }
         return ResponseEntity.status(400).body("error occurred");
     }
@@ -46,7 +46,7 @@ public class AuthenticationController {
         final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail()+"-ADMIN");
 
         if (user != null) {
-            return ResponseEntity.ok(jwtUtil.generateToken(user));
+            return ResponseEntity.ok(jwtUtil.generateToken(user, "-ADMIN"));
         }
         return ResponseEntity.status(400).body("error occurred");
     }
