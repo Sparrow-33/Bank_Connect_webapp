@@ -19,7 +19,7 @@ describe('AppComponent', () => {
   it(`should have as title 'bank_connect_front'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('bank_connect_front');
+    expect(app.date).toEqual(new Date().getFullYear());
   });
 
   it('should render title', () => {
