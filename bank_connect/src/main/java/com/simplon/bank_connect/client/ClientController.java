@@ -48,7 +48,7 @@ public class ClientController {
     @PostMapping("/save/sendSms")
     public Client sendSms(@RequestBody Client client) {
         code = new String[]{clientService.generateCode()};
-        client.setConfimationCode(code[0]);
+        client.setConfirmationCode(code[0]);
         System.out.println(client.toString());
         assert client.getPhone() != null;
         clientService.saveClient(client);
@@ -87,4 +87,6 @@ public class ClientController {
 
         );
     }
+
+
 }

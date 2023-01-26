@@ -27,12 +27,23 @@ public class Transaction {
     @JoinColumn(name = "sender_id")
     private Compte sender;
 
-    private Long recipient;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipient_id")
+    private Compte recipient;
+
+    public Compte getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(Compte recipient) {
+        this.recipient = recipient;
+    }
+
 
     public Transaction() {
     }
 
-    public Transaction(LocalDate dateTransaction,  double montantTransaction, TransactionType type,Compte sender, Long recipient) {
+    public Transaction(LocalDate dateTransaction,  double montantTransaction, TransactionType type,Compte sender, Compte recipient) {
         this.dateTransaction = dateTransaction;
         this.montantTransaction = montantTransaction;
         this.sender = sender;
@@ -82,11 +93,24 @@ public class Transaction {
     }
 
 
-    public Long getDestinataire() {
+    public Compte getDestinataire() {
         return recipient;
     }
 
-    public void setDestinataire(Long recipient) {
+    public void setDestinataire(Compte recipient) {
         this.recipient = recipient;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", dateTransaction=" + dateTransaction +
+                ", montantTransaction=" + montantTransaction +
+                ", type=" + type +
+                ", sender=" + sender +
+                ", recipient=" + recipient +
+                '}';
     }
 }

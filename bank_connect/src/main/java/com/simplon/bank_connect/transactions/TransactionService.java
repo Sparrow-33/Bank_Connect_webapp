@@ -6,6 +6,8 @@ import com.simplon.bank_connect.compte.CompteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
@@ -24,13 +26,46 @@ public class TransactionService {
 
 
     public Transaction deposit(Long id, Transaction transaction) {
-        assert  transaction.getType().equals(TransactionType.DEPOT);
         Compte compte = compteService.getCompteStandardById(id);
         if (compte != null) {
             if (compteService.checkStatus(compte)) {
-                compte.setSolde(compte.getSolde() + transaction.getMontantTransaction());
-//                transaction.
+                compteService.updateCompteSolde(compte, transaction.getMontantTransaction());
+                transaction.setSender(compte);
+                transaction.setRecipient(compte);
                 return saveTransaction(transaction);
+            }
+        }else {
+            Compte comptePro = compteService.getCompteProById(id);
+            if (comptePro != null) {
+                if (compteService.checkStatus(comptePro)) {
+                    compteService.updateCompteSolde(comptePro, comptePro.getSolde());
+                    transaction.setSender(comptePro);
+                    transaction.setRecipient(comptePro);
+                    return saveTransaction(transaction);
+                }
+            }
+        }
+        return null;
+    }
+
+    public Transaction withdraw(Long id, Transaction transaction) {
+        Compte compte = compteService.getCompteStandardById(id);
+        if (compte != null) {
+            if (compteService.checkStatus(compte)) {
+                compteService.updateCompteSolde(compte, -transaction.getMontantTransaction());
+                transaction.setSender(compte);
+                transaction.setRecipient(compte);
+                return saveTransaction(transaction);
+            }
+        }else {
+            Compte comptePro = compteService.getCompteProById(id);
+            if (comptePro != null) {
+                if (compteService.checkStatus(comptePro)) {
+                    compteService.updateCompteSolde(comptePro, -comptePro.getSolde());
+                    transaction.setSender(comptePro);
+                    transaction.setRecipient(comptePro);
+                    return saveTransaction(transaction);
+                }
             }
         }
         return null;

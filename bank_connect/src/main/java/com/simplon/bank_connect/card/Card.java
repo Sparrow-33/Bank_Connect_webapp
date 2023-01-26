@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 
+import java.time.LocalDate;
+
 @Entity
 public class Card {
 
@@ -15,17 +17,20 @@ public class Card {
 
     private String numeroCarte;
 
-    private String dateCreation;
+    private LocalDate dateCreation = java.time.LocalDate.now();
 
-    private String dateExpiration;
+    private LocalDate dateExpiration = java.time.LocalDate.now().plusYears(10);
 
-    private int cvv;
+    private int cvv = (int)(Math.random()*500)+100;
+
+
+
 
 
     public Card() {
     }
 
-    public Card(String numeroCarte, String dateCreation, String dateExpiration, int cvv) {
+    public Card(String numeroCarte, LocalDate dateCreation, LocalDate dateExpiration, int cvv) {
         this.numeroCarte = numeroCarte;
         this.dateCreation = dateCreation;
         this.dateExpiration = dateExpiration;
@@ -48,19 +53,19 @@ public class Card {
         this.numeroCarte = numeroCarte;
     }
 
-    public String getDateCreation() {
+    public LocalDate getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(String dateCreation) {
+    public void setDateCreation(LocalDate dateCreation) {
         this.dateCreation = dateCreation;
     }
 
-    public String getDateExpiration() {
+    public LocalDate getDateExpiration() {
         return dateExpiration;
     }
 
-    public void setDateExpiration(String dateExpiration) {
+    public void setDateExpiration(LocalDate dateExpiration) {
         this.dateExpiration = dateExpiration;
     }
 
