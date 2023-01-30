@@ -2,6 +2,8 @@ package com.simplon.bank_connect.api;
 
 import com.simplon.bank_connect.config.JwtUtil;
 import com.simplon.bank_connect.dto.AuthenticationRequest;
+import com.simplon.bank_connect.dto.Token;
+import com.simplon.bank_connect.exceptions.InvalidCredentialsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,32 +24,36 @@ public class AuthenticationController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/client")
-    public ResponseEntity<String> ClientAuthenticate(@RequestBody AuthenticationRequest request) {
-        System.out.println(request.getPassword());
-        System.out.println( request.getEmail());
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail()+"-CLIENT" ,request.getPassword().trim())
-        );
-        System.out.println("CLIENT AUTH");
+    public ResponseEntity<Token> ClientAuthenticate(@RequestBody AuthenticationRequest request) {
+
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                request.getEmail().trim()+"-CLIENT" ,
+                request.getPassword().trim()));
         final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail()+"-CLIENT");
 
-        if (user != null) {
-            return ResponseEntity.ok(jwtUtil.generateToken(user, "-CLIENT"));
+        if (user == null) {
+            throw new InvalidCredentialsException("Invalid email or password.");
         }
-        return ResponseEntity.status(400).body("error occurred");
+        Token token = new Token();
+        token.setToken(jwtUtil.generateToken(user, "-CLIENT"));
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/agent")
-    public ResponseEntity<String> AgentAuthenticate(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<Token> AgentAuthenticate(@RequestBody AuthenticationRequest request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail()+"-ADMIN", request.getPassword().trim())
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail().trim()+"-ADMIN",
+                                request.getPassword().trim().trim())
         );
 
         final UserDetails user = userDetailsService.loadUserByUsername(request.getEmail()+"-ADMIN");
 
-        if (user != null) {
-            return ResponseEntity.ok(jwtUtil.generateToken(user, "-ADMIN"));
+        if (user == null) {
+            throw new InvalidCredentialsException("Invalid email or password.");
         }
-        return ResponseEntity.status(400).body("error occurred");
+        Token token = new Token();
+        token.setToken(jwtUtil.generateToken(user, "-CLIENT"));
+        return ResponseEntity.ok(token);
     }
 }
